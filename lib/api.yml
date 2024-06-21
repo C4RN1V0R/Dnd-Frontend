@@ -1,0 +1,308 @@
+openapi: "3.1.0"
+info:
+  title: D&D Navigator Backend API
+  description: WIP
+  version: "0.0.1"
+servers:
+  - url: "http://localhost:8080/"
+    description: Localhost
+tags:
+  - name: authRequest
+    description: Everything about authentication
+  - name: worldRequest
+    description: Everything about worlds
+  - name: areaRequest
+    description: Everything about areas
+paths:
+  /auth/sign-in:
+    post:
+      tags:
+        - authRequest
+      operationId: signIn
+      requestBody:
+        description: login as user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCredentials'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWT'
+        '403':
+          description: Invalid input
+  /auth/sign-up:
+    post:
+      tags:
+        - authRequest
+      operationId: signUp
+      requestBody:
+        description: Create a new User
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCredentials'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWT'
+        '403':
+          description: Invalid input
+  /api/world/create:
+    post:
+      tags:
+        - worldRequest
+      operationId: createWorld
+      requestBody:
+        description: Create a new World
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorldRequest'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/World'
+        400:
+          description: bad Request Payload
+  /api/world/{uuid}:
+    get:
+      tags:
+        - worldRequest
+      operationId: getWorldById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/World'
+        404:
+          description: World not found
+    post:
+      tags:
+        - worldRequest
+      operationId: updateWorld
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update a existing World
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorldRequest'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/World'
+        400:
+          description: bad Request Payload
+        404:
+          description: World not found
+  /api/world/all:
+    get:
+      tags:
+        - worldRequest
+      operationId: getAllWorlds
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/World'
+  /api/area/create:
+    post:
+      tags:
+        - areaRequest
+      operationId: createArea
+      requestBody:
+        description: Create a new Area
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AreaRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+  /api/area/{uuid}:
+    get:
+      tags:
+        - areaRequest
+      operationId: getById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+        404:
+          description: Area not found
+    post:
+      tags:
+        - areaRequest
+      operationId: updateArea
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update a existing Area
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AreaRequest'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+        400:
+          description: bad Request Payload
+        404:
+          description: Area not found
+  /api/area/all:
+    get:
+      tags:
+        - areaRequest
+      operationId: getAll
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+components:
+  schemas:
+    UserPreview:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+          examples: ['theUsername']
+    UserCredentials:
+      type: object
+      properties:
+        username:
+          type: string
+          examples: ['theUsername']
+        password:
+          type: string
+          format: password
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+          examples: ['theUsername']
+        mail:
+          type: string
+          format: mail
+    JWT:
+      type: object
+      properties:
+        token:
+          type: string
+          format: jwt
+    World:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        creator:
+          $ref: '#/components/schemas/UserPreview'
+        name:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+    WorldPreview:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    WorldRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          examples: [newWorld]
+    Area:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+        creator:
+          $ref: '#/components/schemas/UserPreview'
+        world:
+          $ref: '#/components/schemas/WorldPreview'
+    AreaRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          examples: [newArea]

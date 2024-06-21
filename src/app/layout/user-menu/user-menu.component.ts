@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './user-menu.component.scss'
 })
 export class UserMenuComponent {
+  
+  
+  constructor(protected authService: AuthService) { 
+  }
 
 }
