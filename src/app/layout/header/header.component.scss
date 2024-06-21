@@ -1,0 +1,24 @@
+nav {
+    padding: 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border-right: solid var(--color-highlight-dark);
+    li {
+      border-left: solid var(--color-highlight-dark);
+      a {
+        display: inline-block;
+        padding: 1rem;
+        &:hover{
+          background-color: var(--color-highlight-bright);
+        }
+        text-decoration: none;
+        color: inherit;
+      }
+  
+    }
+  }
