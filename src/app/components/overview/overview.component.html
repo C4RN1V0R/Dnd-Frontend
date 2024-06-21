@@ -1,0 +1,29 @@
+<h1>Overview</h1>
+<button (click)="load()" mat-button>Reload</button>
+
+<p>Worlds</p>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Creator</th>
+        <th>Created</th>
+    </thead>
+    <tr *ngFor="let world of worlds">
+        <td>{{world.name}}</td>
+        <td>{{world.creator?.username}}</td>
+        <td>{{world.creationDate}}</td>
+        <td><button (click)="openWorldDialog(world)">Details</button></td>
+    </tr>
+</table>
+
+<p>Areas</p>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Creator</th>
+    </thead>
+    <tr *ngFor="let world of worlds">
+        <td>{{world.name}}</td>
+        <td>{{world.creator?.username}}</td>
+    </tr>
+</table>

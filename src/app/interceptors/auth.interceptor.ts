@@ -2,6 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { AuthService } from '../services/auth/auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  console.log("interceptor called");
   const token = AuthService.getToken();
 
     if (token) {
