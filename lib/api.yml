@@ -224,6 +224,7 @@ components:
   schemas:
     UserPreview:
       type: object
+      required: [username]
       properties:
         id:
           type: string
@@ -233,6 +234,7 @@ components:
           examples: ['theUsername']
     UserCredentials:
       type: object
+      required: [username, password]
       properties:
         username:
           type: string
@@ -242,6 +244,7 @@ components:
           format: password
     User:
       type: object
+      required: [username]
       properties:
         id:
           type: string
@@ -254,12 +257,14 @@ components:
           format: mail
     JWT:
       type: object
+      required: [token]
       properties:
         token:
           type: string
           format: jwt
     World:
       type: object
+      required: [name]
       properties:
         id:
           type: string
@@ -273,6 +278,7 @@ components:
           format: date-time
     WorldPreview:
       type: object
+      required: [name]
       properties:
         id:
           type: string
@@ -281,12 +287,14 @@ components:
           type: string
     WorldRequest:
       type: object
+      required: [name]
       properties:
         name:
           type: string
           examples: [newWorld]
     Area:
       type: object
+      required: [name, world]
       properties:
         id:
           type: string
@@ -302,7 +310,9 @@ components:
           $ref: '#/components/schemas/WorldPreview'
     AreaRequest:
       type: object
+      required: [name]
       properties:
         name:
           type: string
           examples: [newArea]
+
