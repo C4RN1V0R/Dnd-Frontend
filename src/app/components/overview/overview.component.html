@@ -7,12 +7,16 @@
         <th>Name</th>
         <th>Creator</th>
         <th>Created</th>
+        <th><button (click)="worldDialogService.create()">New World</button></th>
     </thead>
     <tr *ngFor="let world of worlds">
         <td>{{world.name}}</td>
         <td>{{world.creator?.username}}</td>
         <td>{{world.creationDate}}</td>
-        <td><button (click)="openWorldDialog(world)">Details</button></td>
+        <td>
+            <button (click)="worldDialogService.open(world)">Details</button>
+            <button (click)="worldDialogService.edit(world)">Edit</button>
+        </td>
     </tr>
 </table>
 

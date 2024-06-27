@@ -1,1 +1,24 @@
-<p>world-detail works!</p>
+<mat-card>
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="worldForm" (ngSubmit)="submitDialog()">
+            <mat-form-field>
+                <input matInput type="text" formControlName="name" placeholder="Name">
+            </mat-form-field>
+            <div mat-dialog-actions [ngSwitch]="role">
+                <div *ngSwitchCase="roleType.new">
+                    <button mat-button (click)="closeDialog()">Close</button>
+                    <button mat-button type="submit">Create</button>
+                </div>
+                <div *ngSwitchCase="roleType.update">
+                    <button mat-button (click)="closeDialog()">Close</button>
+                    <button mat-button type="submit">Update</button>
+                </div>
+                <div *ngSwitchDefault>
+                    <button mat-button (click)="closeDialog()">Close</button>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+

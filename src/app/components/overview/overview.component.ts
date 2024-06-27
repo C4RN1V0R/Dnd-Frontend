@@ -17,7 +17,7 @@ export class OverviewComponent {
   
   constructor(
     private worldApi: WorldRequestService,
-    private worldDialogService: WorldDialogService
+    protected worldDialogService: WorldDialogService
   ) {
     this.load();
   }
@@ -26,10 +26,6 @@ export class OverviewComponent {
     this.worldApi.getAllWorlds().subscribe(response => {
       this.worlds = response
     })
-  }
-  
-  openWorldDialog(world: World) {
-    const dialogRef = this.worldDialogService.open(world)
   }
 
 
